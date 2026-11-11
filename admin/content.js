@@ -27,14 +27,21 @@
   function token() { return sessionStorage.getItem(TOKEN_KEY) || '' }
 
   async function api(action, body) {
-    const res = await fetch(cfg.url + '/functions/v1/admin-content?action=' + action, {
-      method: body === undefined ? 'GET' : 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token(),
-      },
-      body: body === undefined ? undefined : JSON.stringify(body),
-    })
+    let res
+    try {
+      res = await fetch(cfg.url + '/functions/v1/admin-content?action=' + action, {
+        method: body === undefined ? 'GET' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token(),
+        },
+        body: body === undefined ? undefined : JSON.stringify(body),
+      })
+    } catch (e) {
+      // 网络异常：不静默失败，调用方能拿到 null 并给出提示
+      console.error('api_network_error', action, e)
+      return null
+    }
     if (res.status === 401) { sessionStorage.clear(); location.reload(); return null }
     const data = await res.json().catch(function () { return {} })
     if (!res.ok || data.ok === false) {
@@ -165,23 +172,32 @@
   if (saveBtn) {
     saveBtn.addEventListener('click', async function () {
       saveBtn.disabled = true
-      const payload = {
-        slug: $('#ed-slug').value.trim(),
-        title: $('#ed-title').value.trim(),
-        summary: $('#ed-summary').value.trim(),
-        body_md: $('#ed-body').value,
-        status: $('#ed-status').value,
-        minutes: Number($('#ed-minutes').value || 5),
-        sort_order: Number($('#ed-sort').value || 0),
-        tags: $('#ed-tags').value.split(',').map(function (s) { return s.trim() }).filter(Boolean),
-      }
-      const r = await api('upsert', payload)
-      saveBtn.disabled = false
-      if (r) {
+      const hint = $('#save-hint')
+      try {
+        const payload = {
+          slug: $('#ed-slug').value.trim(),
+          title: $('#ed-title').value.trim(),
+          summary: $('#ed-summary').value.trim(),
+          body_md: $('#ed-body').value,
+          status: $('#ed-status').value,
+          minutes: Number($('#ed-minutes').value || 5),
+          sort_order: Number($('#ed-sort').value || 0),
+          tags: $('#ed-tags').value.split(',').map(function (s) { return s.trim() }).filter(Boolean),
+        }
+        const r = await api('upsert', payload)
+        if (!r) {
+          if (hint) hint.textContent = '保存失败，请检查网络后重试'
+          return
+        }
         editing = payload.slug
         await loadArticles()
         openEditor(payload.slug)
-        $('#save-hint').textContent = '已保存（草稿）。点「发布到线上」后才会生效。'
+        if (hint) hint.textContent = '已保存。点「发布到线上」后才会生效。'
+      } catch (e) {
+        console.error('save_failed', e)
+        if (hint) hint.textContent = '保存出错：' + (e && e.message ? e.message : e)
+      } finally {
+        saveBtn.disabled = false
       }
     })
   }
@@ -293,6 +309,13 @@
   // ══════════════════════════════════════════════════════════════════
   // 启动
   // ══════════════════════════════════════════════════════════════════
+  // 兜底：未捕获的 Promise rejection 直接提示，避免「点了没反应又没报错」
+  window.addEventListener('unhandledrejection', function (e) {
+    console.error('unhandled_rejection', e.reason)
+    const hint = $('#save-hint')
+    if (hint) hint.textContent = '操作出错：' + (e.reason && e.reason.message ? e.reason.message : e.reason)
+  })
+
   async function init() {
     switchTab('overview')
     await Promise.all([loadArticles(), loadBlocks(), loadPublishLog()])
