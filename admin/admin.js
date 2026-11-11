@@ -1,3 +1,7 @@
+// 注意：本文件是**浏览器原生执行的 classic script**（不是 ES module）。
+// 顶层 const 会和同一页面其他 script 共享全局词法作用域，重名即 SyntaxError，
+// 导致整个脚本不执行。因此整个文件包在 IIFE 里，作用域互不干扰。
+(function () {
 // han-site · 后台前端
 // 时间：2026-11-11
 //
@@ -292,3 +296,4 @@ if (token()) {
 } else {
   showLogin()
 }
+})()
