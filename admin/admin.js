@@ -110,6 +110,8 @@ async function showApp() {
   const who = $('#who')
   if (who) who.textContent = sessionStorage.getItem(EMAIL_KEY) || ''
   await loadAll()
+  // 通知其它模块（content.js）：登录态就绪
+  window.dispatchEvent(new CustomEvent('han-site:ready'))
 }
 
 // ── 渲染 ────────────────────────────────────────────────────────────
