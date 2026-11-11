@@ -42,7 +42,7 @@ if (form) {
       // 没配置 / 本地限定 → 走邮件兜底，诚实告知，不假装订阅成功
       const subject = encodeURIComponent('订阅 han-site 更新')
       const body = encodeURIComponent(`我想订阅 han-site 的更新。\n\n邮箱：${email}\n`)
-      window.location.href = `mailto:han@hyliton.com?subject=${subject}&body=${body}`
+      window.location.href = `mailto:liuhan@hyliton.com?subject=${subject}&body=${body}`
       setState('已打开邮件客户端，发送后即完成订阅', 'ok')
       return
     }
