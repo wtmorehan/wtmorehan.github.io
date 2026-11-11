@@ -11,21 +11,22 @@
 //   - 配置缺失时静默跳过，不报错、不影响浏览
 //   - 不采集任何表单内容，只采集「点了哪个按钮」
 //   - 统计口径与后端一致：visitor 由后端按 IP+UA 的 HMAC 去重，浏览器不存标识
+//
+// 注意：本文件是**浏览器原生执行的 .js**，不能写 TypeScript 类型标注（浏览器会 SyntaxError）。
 
-const cfg = window.HAN_SITE_SUPABASE ?? {}
+const cfg = window.HAN_SITE_SUPABASE || {}
 const enabled = Boolean(cfg.url && cfg.anonKey)
-const ENDPOINT = enabled ? `${cfg.url}/functions/v1/track` : ''
+const ENDPOINT = enabled ? cfg.url + '/functions/v1/track' : ''
 
 function payload(obj) {
-  return {
+  return Object.assign({
     path: location.pathname + location.search,
     title: document.title,
     referrer: document.referrer || null,
-    ...obj,
-  }
+  }, obj || {})
 }
 
-function send(obj, useBeacon = false) {
+function send(obj, useBeacon) {
   if (!enabled) return
   const body = JSON.stringify(payload(obj))
   try {
@@ -37,10 +38,10 @@ function send(obj, useBeacon = false) {
     fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body,
+      body: body,
       keepalive: true,
-    }).catch(() => {})
-  } catch {
+    }).catch(function () {})
+  } catch (err) {
     /* 埋点失败不影响页面 */
   }
 }
@@ -48,26 +49,27 @@ function send(obj, useBeacon = false) {
 // ── 1. PV ───────────────────────────────────────────────────────────
 if (enabled) {
   // 等一帧再报，确保 title 已最终确定
-  requestAnimationFrame(() => send({}, true))
+  requestAnimationFrame(function () { send({}, true) })
 }
 
 // ── 2. 点击事件 ─────────────────────────────────────────────────────
 // 约定：任何元素加 data-track="稳定的机器可读标识" 即被追踪。
 // 没有 data-track 的链接不追踪，避免后台被噪声淹没。
-document.addEventListener('click', (event) => {
-  const el = (event.target as HTMLElement)?.closest?.('[data-track]')
+document.addEventListener('click', function (event) {
+  const target = event.target
+  const el = target && target.closest ? target.closest('[data-track]') : null
   if (!el) return
   const label = el.getAttribute('data-track')
   if (!label) return
   send({
     event_type: el.getAttribute('data-track-type') || 'click',
-    label,
+    label: label,
     target_url: el instanceof HTMLAnchorElement ? el.href : null,
   })
 }, { capture: true })
 
 // ── 3. 前端错误 ─────────────────────────────────────────────────────
-window.addEventListener('error', (event) => {
+window.addEventListener('error', function (event) {
   send({
     event_type: 'error',
     label: (event.message || 'error').slice(0, 80),
