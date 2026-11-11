@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 后台不需要被索引
+Disallow: /admin/
