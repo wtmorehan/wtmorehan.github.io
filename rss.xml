@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>刘晗 | Han Liu</title>
+    <link>https://wtmorehan.github.io</link>
+    <description>刘晗的个人网站：电力装备、配网互感器、AI 应用落地、制造业转型、公开内容归档。</description>
+    <language>zh-CN</language>
+    <atom:link href="https://wtmorehan.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>在制造业谈 AI 转型，先把账算清</title>
+      <link>https://wtmorehan.github.io/content/manufacturing-ai-transformation-count-the-money</link>
+      <guid isPermaLink="true">https://wtmorehan.github.io/content/manufacturing-ai-transformation-count-the-money</guid>
+      <pubDate>Fri, 20 Jun 2026 08:00:00 +0800</pubDate>
+      <description>最近两年，AI 赋能制造业成了一个热词。但大多数讨论都停在了概念层面。作为配网互感器企业的总经理，我谈一下制造业 AI 转型的真实账本。</description>
+      <author>刘晗</author>
+      <category>制造业转型</category>
+      <category>AI 与电力</category>
+    </item>
+
+    <item>
+      <title>互感器行业没有捷径</title>
+      <link>https://wtmorehan.github.io/content/transformer-industry-no-shortcuts</link>
+      <guid isPermaLink="true">https://wtmorehan.github.io/content/transformer-industry-no-shortcuts</guid>
+      <pubDate>Thu, 15 May 2026 08:00:00 +0800</pubDate>
+      <description>配网互感器是一个小行业。从业二十年，见过太多"颠覆者"来来去去。这个行业真正难的，不是技术突破，而是在极端成本约束下，把精度和可靠性做到极致。</description>
+      <author>刘晗</author>
+      <category>制造业转型</category>
+    </item>
+
+    <item>
+      <title>用 AI Agent 做投标监控：三个月实战复盘</title>
+      <link>https://wtmorehan.github.io/content/ai-agent-for-tender-monitoring</link>
+      <guid isPermaLink="true">https://wtmorehan.github.io/content/ai-agent-for-tender-monitoring</guid>
+      <pubDate>Mon, 28 Apr 2026 08:00:00 +0800</pubDate>
+      <description>今年三月，我开始用 AI Agent 自动监控国家电网和南方电网的招标信息。三个月跑下来，省了至少一个人力，也踩了不少坑。</description>
+      <author>刘晗</author>
+      <category>AI 与电力</category>
+      <category>商业与管理</category>
+    </item>
+
+    <item>
+      <title>接班这件事</title>
+      <link>https://wtmorehan.github.io/content/family-business-and-me</link>
+      <guid isPermaLink="true">https://wtmorehan.github.io/content/family-business-and-me</guid>
+      <pubDate>Tue, 10 Mar 2026 08:00:00 +0800</pubDate>
+      <description>2024 年，我从父亲手里接过了恒源利通的总经理位置。说实话，接班这件事，比我自己想象的要难得多。</description>
+      <author>刘晗</author>
+      <category>商业与管理</category>
+    </item>
+
+    <item>
+      <title>从清华电机系到配网互感器</title>
+      <link>https://wtmorehan.github.io/content/from-tsinghua-to-power-grid</link>
+      <guid isPermaLink="true">https://wtmorehan.github.io/content/from-tsinghua-to-power-grid</guid>
+      <pubDate>Wed, 22 Jan 2026 08:00:00 +0800</pubDate>
+      <description>2008 年进清华电机系的时候，我对"电力"两个字没什么感觉。十八年过去了，我每天都在跟互感器、配电网、电科院打交道。</description>
+      <author>刘晗</author>
+      <category>商业与管理</category>
+    </item>
+
+    <item>
+      <title>十五五规划背后的电力行业机会</title>
+      <link>https://wtmorehan.github.io/content/fifteen-year-plan-power-grid</link>
+      <guid isPermaLink="true">https://wtmorehan.github.io/content/fifteen-year-plan-power-grid</guid>
+      <pubDate>Fri, 05 Dec 2025 08:00:00 +0800</pubDate>
+      <description>十五五规划即将落地，新型电力系统建设进入深水区。对配网设备企业来说，这既是增量，也是洗牌。</description>
+      <author>刘晗</author>
+      <category>AI 与电力</category>
+    </item>
+
+    <item>
+      <title>我为什么每天用 AI——一个制造业老板的视角</title>
+      <link>https://wtmorehan.github.io/content/why-i-use-ai-daily</link>
+      <guid isPermaLink="true">https://wtmorehan.github.io/content/why-i-use-ai-daily</guid>
+      <pubDate>Sat, 18 Oct 2025 08:00:00 +0800</pubDate>
+      <description>不是跟风。不是为了发朋友圈。是因为公司里那些重复性的活——报价、招标、合同审查、客户跟进——真的可以交给 AI 做。</description>
+      <author>刘晗</author>
+      <category>AI 与电力</category>
+    </item>
+
+    <item>
+      <title>从 WUSTL 到北京：一个海归的十年</title>
+      <link>https://wtmorehan.github.io/content/wustl-to-beijing</link>
+      <guid isPermaLink="true">https://wtmorehan.github.io/content/wustl-to-beijing</guid>
+      <pubDate>Sun, 03 Aug 2025 08:00:00 +0800</pubDate>
+      <description>2015 年从圣路易斯回国的时候，我对"做实业"没有什么概念。十年过去了，我在车间里待过，在电科院跑过测试，在国网招标现场蹲过点。</description>
+      <author>刘晗</author>
+      <category>商业与管理</category>
+    </item>
+
+  </channel>
+</rss>
